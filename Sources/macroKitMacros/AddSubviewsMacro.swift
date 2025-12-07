@@ -90,7 +90,7 @@ public struct AddSubviewsMacro: MemberMacro {
 
         let method: DeclSyntax = """
 
-        func setHierarchy() {
+        override func setHierarchy() {
         \(raw: statementsCode)
         }
         """

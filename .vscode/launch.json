@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:macroKit}",
+            "name": "Debug macroKitClient",
+            "target": "macroKitClient",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug macroKitClient"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:macroKit}",
+            "name": "Release macroKitClient",
+            "target": "macroKitClient",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release macroKitClient"
+        }
+    ]
+}

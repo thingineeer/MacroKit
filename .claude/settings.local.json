@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(swift build:*)",
+      "Bash(swift run:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\n[Feat] 유용한 매크로 추가 및 AddSubviewMacro 버그 수정\n\n- AddSubviewMacro 플러그인 등록 누락 수정\n- #URL 매크로 추가: 컴파일 타임 URL 유효성 검증\n- #unwrap 매크로 추가: Optional 안전 unwrap\n- #log 매크로 추가: 파일/라인 정보 포함 디버그 로깅\n- #buildDate 매크로 추가: 빌드 시간 반환\n- 튜토리얼 예제 코드 추가\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git push:*)",
+      "Bash(git tag:*)",
+      "Bash(swift test:*)",
+      "Bash(git commit:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

@@ -116,7 +116,7 @@ public macro buildDate() -> String = #externalMacro(
 ///     }
 ///
 ///     // 자동 생성:
-///     // func setHierarchy() {
+///     // override func setHierarchy() {
 ///     //     view.addSubview(titleLabel)
 ///     //     view.addSubview(button)
 ///     //     view.addSubview(containerView)

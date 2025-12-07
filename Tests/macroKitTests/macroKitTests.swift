@@ -216,7 +216,7 @@ final class AddSubviewsMacroTests: XCTestCase {
                 let titleLabel = UILabel()
                 let button = UIButton()
 
-                func setHierarchy() {
+                override func setHierarchy() {
                         view.addSubview(titleLabel)
                         view.addSubview(button)
                 }
@@ -246,7 +246,7 @@ final class AddSubviewsMacroTests: XCTestCase {
                 let containerView = UIView()
                 let innerLabel = UILabel()
 
-                func setHierarchy() {
+                override func setHierarchy() {
                         view.addSubview(containerView)
                         containerView.addSubview(innerLabel)
                 }
@@ -286,7 +286,7 @@ final class AddSubviewsMacroTests: XCTestCase {
                 let headerIcon = UIImageView()
                 let headerTitle = UILabel()
 
-                func setHierarchy() {
+                override func setHierarchy() {
                         view.addSubview(headerView)
                         view.addSubview(titleLabel)
                         view.addSubview(descriptionLabel)
@@ -320,7 +320,7 @@ final class AddSubviewsMacroTests: XCTestCase {
                 let name = "Hello"
                 let count = 42
 
-                func setHierarchy() {
+                override func setHierarchy() {
                         view.addSubview(titleLabel)
                 }
             }
