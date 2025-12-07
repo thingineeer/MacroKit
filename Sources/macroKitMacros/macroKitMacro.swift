@@ -34,5 +34,7 @@ struct macroKitPlugin: CompilerPlugin {
         UnwrapMacro.self,
         LogMacro.self,
         BuildDateMacro.self,
+        AddSubviewsMacro.self,
+        AddToMacro.self,
     ]
 }
