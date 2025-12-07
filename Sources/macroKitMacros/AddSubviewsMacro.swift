@@ -8,8 +8,21 @@
 import SwiftSyntax
 import SwiftSyntaxMacros
 import SwiftSyntaxBuilder
+import Foundation
 
-/// @AddSubviews - 클래스에 붙이면 setupSubviews() 메서드를 자동 생성합니다
+/// 매크로 에러 타입
+enum MacroError: Error, CustomStringConvertible {
+    case message(String)
+
+    var description: String {
+        switch self {
+        case .message(let text):
+            return text
+        }
+    }
+}
+
+/// @AddSubviews - 클래스에 붙이면 setHierarchy() 메서드를 자동 생성합니다
 /// UIView/UIViewController 프로퍼티들을 자동으로 addSubview 합니다
 public struct AddSubviewsMacro: MemberMacro {
     public static func expansion(
