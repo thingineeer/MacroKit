@@ -29,5 +29,10 @@ public struct StringifyMacro: ExpressionMacro {
 struct macroKitPlugin: CompilerPlugin {
     let providingMacros: [Macro.Type] = [
         StringifyMacro.self,
+        AddSubviewMacro.self,
+        URLMacro.self,
+        UnwrapMacro.self,
+        LogMacro.self,
+        BuildDateMacro.self,
     ]
 }
