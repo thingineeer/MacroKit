@@ -39,8 +39,8 @@ final class AddSubviewsMacroTests: XCTestCase {
                 let button = UIButton()
 
                 override func setHierarchy() {
-                        view.addSubview(titleLabel)
-                        view.addSubview(button)
+                    view.addSubview(titleLabel)
+                    view.addSubview(button)
                 }
             }
             """,
@@ -69,8 +69,8 @@ final class AddSubviewsMacroTests: XCTestCase {
                 let innerLabel = UILabel()
 
                 override func setHierarchy() {
-                        view.addSubview(containerView)
-                        containerView.addSubview(innerLabel)
+                    view.addSubview(containerView)
+                    containerView.addSubview(innerLabel)
                 }
             }
             """,
@@ -99,7 +99,7 @@ final class AddSubviewsMacroTests: XCTestCase {
                 let count = 42
 
                 override func setHierarchy() {
-                        view.addSubview(titleLabel)
+                    view.addSubview(titleLabel)
                 }
             }
             """,
@@ -136,8 +136,8 @@ final class AddSubviewsMacroTests: XCTestCase {
                 }()
 
                 override func setHierarchy() {
-                        view.addSubview(titleLabel)
-                        view.addSubview(descriptionLabel)
+                    view.addSubview(titleLabel)
+                    view.addSubview(descriptionLabel)
                 }
             }
             """,
@@ -174,8 +174,8 @@ final class AddSubviewsMacroTests: XCTestCase {
                 }()
 
                 override func setHierarchy() {
-                        view.addSubview(containerView)
-                        containerView.addSubview(innerButton)
+                    view.addSubview(containerView)
+                    containerView.addSubview(innerButton)
                 }
             }
             """,
