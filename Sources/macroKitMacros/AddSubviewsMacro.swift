@@ -119,12 +119,12 @@ public struct AddSubviewsMacro: MemberMacro {
         }
 
         // 각 statement를 개별 ExprSyntax로 변환
-        let statementsCode = bodyStatements.map { "        \($0)" }.joined(separator: "\n")
+        let statementsCode = bodyStatements.map { "    \($0)" }.joined(separator: "\n")
 
         let method: DeclSyntax = """
-    override func setHierarchy() {
+override func setHierarchy() {
 \(raw: statementsCode)
-    }
+}
 """
 
         return [method]
