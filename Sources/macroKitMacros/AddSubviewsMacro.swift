@@ -89,29 +89,25 @@ public struct AddSubviewsMacro: MemberMacro {
             }
         }
 
-        var statements: [CodeBlockItemSyntax] = []
+        guard !defaultSubviews.isEmpty || !customSubviews.isEmpty else { return [] }
+
+        // 들여쓰기 포함한 문자열로 생성 (매크로 시스템이 첫 줄 기준 4칸 추가함)
+        var lines: [String] = []
+        lines.append("override func setHierarchy() {")
 
         for subview in defaultSubviews {
-            statements.append(
-                CodeBlockItemSyntax("view.addSubview(\(raw: subview))")
-            )
+            lines.append("    view.addSubview(\(subview))")
         }
 
         for (child, parent) in customSubviews {
-            statements.append(
-                CodeBlockItemSyntax("\(raw: parent).addSubview(\(raw: child))")
-            )
+            lines.append("    \(parent).addSubview(\(child))")
         }
 
-        guard !statements.isEmpty else { return [] }
+        lines.append("}")
 
-        let method = try! FunctionDeclSyntax("override func setHierarchy()") {
-            for stmt in statements {
-                stmt
-            }
-        }
+        let methodString = lines.joined(separator: "\n")
 
-        return [DeclSyntax(method)]
+        return [DeclSyntax(stringLiteral: methodString)]
     }
 
     /// UIView 관련 타입인지 확인
