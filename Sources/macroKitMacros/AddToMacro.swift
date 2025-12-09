@@ -16,8 +16,6 @@ public struct AddToMacro: PeerMacro {
         providingPeersOf declaration: some DeclSyntaxProtocol,
         in context: some MacroExpansionContext
     ) throws -> [DeclSyntax] {
-        // 이 매크로는 마커 역할만 합니다
-        // 실제 로직은 AddSubviewsMacro에서 처리합니다
-        return []
+        return [] // AddTo는 AddSubviews에서만 사용
     }
 }

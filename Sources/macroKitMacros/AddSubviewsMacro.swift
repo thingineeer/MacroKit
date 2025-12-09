@@ -5,13 +5,6 @@
 //  Created by 이명진 on 12/7/25.
 //
 
-//
-//  AddSubviewsMacro.swift
-//  macroKit
-//
-//  Created by 이명진 on 12/7/25.
-//
-
 import SwiftSyntax
 import SwiftSyntaxMacros
 import SwiftSyntaxBuilder
