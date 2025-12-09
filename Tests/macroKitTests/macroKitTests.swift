@@ -109,4 +109,80 @@ final class AddSubviewsMacroTests: XCTestCase {
         throw XCTSkip("macros are only supported when running tests for the host platform")
         #endif
     }
+
+    func testAddSubviewsWithLazyVar() throws {
+        #if canImport(macroKitMacros)
+        assertMacroExpansion(
+            """
+            @AddSubviews
+            class MyViewController {
+                let titleLabel = UILabel()
+
+                lazy var descriptionLabel: UILabel = {
+                    let label = UILabel()
+                    label.numberOfLines = 0
+                    return label
+                }()
+            }
+            """,
+            expandedSource: """
+            class MyViewController {
+                let titleLabel = UILabel()
+
+                lazy var descriptionLabel: UILabel = {
+                    let label = UILabel()
+                    label.numberOfLines = 0
+                    return label
+                }()
+
+                override func setHierarchy() {
+                        view.addSubview(titleLabel)
+                        view.addSubview(descriptionLabel)
+                }
+            }
+            """,
+            macros: testMacros
+        )
+        #else
+        throw XCTSkip("macros are only supported when running tests for the host platform")
+        #endif
+    }
+
+    func testAddSubviewsWithLazyVarAndAddTo() throws {
+        #if canImport(macroKitMacros)
+        assertMacroExpansion(
+            """
+            @AddSubviews
+            class MyViewController {
+                let containerView = UIView()
+
+                @AddTo("containerView")
+                lazy var innerButton: UIButton = {
+                    let button = UIButton()
+                    button.setTitle("Click", for: .normal)
+                    return button
+                }()
+            }
+            """,
+            expandedSource: """
+            class MyViewController {
+                let containerView = UIView()
+                lazy var innerButton: UIButton = {
+                    let button = UIButton()
+                    button.setTitle("Click", for: .normal)
+                    return button
+                }()
+
+                override func setHierarchy() {
+                        view.addSubview(containerView)
+                        containerView.addSubview(innerButton)
+                }
+            }
+            """,
+            macros: testMacros
+        )
+        #else
+        throw XCTSkip("macros are only supported when running tests for the host platform")
+        #endif
+    }
 }

@@ -52,12 +52,32 @@ public struct AddSubviewsMacro: MemberMacro {
 
             let propertyName = identifier.identifier.text
 
-            // UIView 타입인지 확인 (초기화 표현식으로 판단)
-            guard let initializer = binding.initializer?.value else { continue }
+            // lazy 키워드 확인
+            let isLazy = varDecl.modifiers.contains { modifier in
+                modifier.name.tokenKind == .keyword(.lazy)
+            }
 
-            // 함수 호출 초기화인지 확인 (예: UILabel(), UIButton())
-            let initText = initializer.description.trimmingCharacters(in: .whitespaces)
-            guard isUIViewType(initText) else { continue }
+            // UIView 타입인지 확인
+            var isUIView = false
+
+            if isLazy {
+                // lazy var의 경우: 타입 어노테이션 또는 초기화 표현식으로 확인
+                if let typeAnnotation = binding.typeAnnotation?.type {
+                    let typeText = typeAnnotation.description.trimmingCharacters(in: .whitespaces)
+                    isUIView = isUIViewType(typeText)
+                } else if let initializer = binding.initializer?.value {
+                    // 클로저 호출 형태: { UILabel() }() 또는 일반 초기화
+                    let initText = initializer.description.trimmingCharacters(in: .whitespaces)
+                    isUIView = isUIViewType(initText) || isClosureReturningUIView(initText)
+                }
+            } else {
+                // 일반 let/var의 경우: 초기화 표현식으로 확인
+                guard let initializer = binding.initializer?.value else { continue }
+                let initText = initializer.description.trimmingCharacters(in: .whitespaces)
+                isUIView = isUIViewType(initText)
+            }
+
+            guard isUIView else { continue }
 
             // @AddTo 어트리뷰트가 있는지 확인
             var parentView: String? = nil
@@ -125,6 +145,28 @@ public struct AddSubviewsMacro: MemberMacro {
 
         for viewType in viewTypes {
             if text.hasPrefix(viewType) {
+                return true
+            }
+        }
+
+        return false
+    }
+
+    /// 클로저가 UIView를 반환하는지 확인 (예: { let label = UILabel(); return label }())
+    private static func isClosureReturningUIView(_ text: String) -> Bool {
+        let viewTypes = [
+            "UIView", "UILabel", "UIButton", "UIImageView", "UITextField",
+            "UITextView", "UITableView", "UICollectionView", "UIScrollView",
+            "UIStackView", "UISwitch", "UISlider", "UIProgressView",
+            "UISegmentedControl", "UIPickerView", "UIDatePicker",
+            "UIActivityIndicatorView", "UIVisualEffectView", "UISearchBar",
+            "UIToolbar", "UITabBar", "UINavigationBar", "UIPageControl",
+            "WKWebView", "MKMapView", "SKView", "GLKView", "MTKView"
+        ]
+
+        // 클로저 내부에서 UIView 타입 생성 확인
+        for viewType in viewTypes {
+            if text.contains(viewType) {
                 return true
             }
         }
